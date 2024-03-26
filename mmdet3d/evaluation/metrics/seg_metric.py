@@ -7,7 +7,7 @@ import mmcv
 import numpy as np
 from mmengine.evaluator import BaseMetric
 from mmengine.logging import MMLogger
-
+import mmengine
 from mmdet3d.evaluation import seg_eval
 from mmdet3d.registry import METRICS
 
@@ -83,7 +83,7 @@ class SegMetric(BaseMetric):
         if submission_prefix is None:
             tmp_dir = tempfile.TemporaryDirectory()
             submission_prefix = osp.join(tmp_dir.name, 'results')
-        mmcv.mkdir_or_exist(submission_prefix)
+        mmengine.utils.mkdir_or_exist(submission_prefix)
         ignore_index = self.dataset_meta['ignore_index']
         # need to map network output to original label idx
         cat2label = np.zeros(len(self.dataset_meta['label2cat'])).astype(
